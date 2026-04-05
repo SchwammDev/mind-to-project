@@ -55,6 +55,26 @@ All config lives in `~/.config/project-init/`:
 7. `setup` command — copy defaults to config dir if not present
 8. End-to-end smoke test with a real raw file
 
+## Tests
+
+Run: `uv run pytest` (or `uv run pytest -v` for verbose output).
+
+| File | Covers |
+|---|---|
+| `test_config.py` | Config loading, Pydantic validation, client building, missing/invalid config errors |
+| `test_prompts.py` | Template loading, `{{content}}` substitution, missing template errors |
+| `test_pipeline.py` | Cleanup/extract steps, full pipeline, skip-cleanup logic, overwrite protection |
+| `test_cli.py` | Argparse parsing, command dispatch, exit code 1 + plain error messages |
+| `test_setup.py` | Config dir scaffolding, default files, no-overwrite of existing config |
+
+Tests define the public API:
+- `project_init.config` → `load_config()`, `build_client()`
+- `project_init.prompts` → `load_prompt()`
+- `project_init.pipeline` → `run_cleanup()`, `run_extract()`, `run_pipeline()`
+- `project_init.cli` → `parse_args()`, `main()`
+- `project_init.setup` → `setup_config()`
+- `project_init.errors` → `ProjectInitError`
+
 ## Design decisions
 
 - **Overwrite protection**: all commands that produce output files require `--force` if the target already exists, **except** that `init` silently skips step 1 (cleanup) if the cleaned file already exists — treating it as a cached intermediate
