@@ -3,9 +3,9 @@ import sys
 from pathlib import Path
 
 from project_init.config import load_config  # noqa: F401 - imported for test mocking
+from project_init.config_scaffold import setup_config
 from project_init.errors import ProjectInitError
 from project_init.pipeline import run_cleanup, run_extract, run_pipeline
-from project_init.setup import setup_config
 
 
 def get_config_dir() -> Path:

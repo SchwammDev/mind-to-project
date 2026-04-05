@@ -72,7 +72,7 @@ Tests define the public API:
 - `project_init.prompts` → `load_prompt()`
 - `project_init.pipeline` → `run_cleanup()`, `run_extract()`, `run_pipeline()`
 - `project_init.cli` → `parse_args()`, `main()`
-- `project_init.setup` → `setup_config()`
+- `project_init.config_scaffold` → `setup_config()`
 - `project_init.errors` → `ProjectInitError`
 
 ## Design decisions
