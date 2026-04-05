@@ -57,7 +57,7 @@ All config lives in `~/.config/project-init/`:
 
 ## Tests
 
-Run: `uv run pytest` (or `uv run pytest -v` for verbose output).
+Run: `uv run pytest tests/<TEST FILE>` (or `uv run pytest -v tests/<TEST FILE>` for verbose output).
 
 | File | Covers |
 |---|---|
