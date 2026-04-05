@@ -1,2 +1,1 @@
-def main() -> None:
-    print("Hello from mind-to-project!")
+from mind_to_project.cli import main

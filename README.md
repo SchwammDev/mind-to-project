@@ -2,6 +2,12 @@
 
 A CLI tool that turns a raw brain-dump (`Project_Overview.raw.md`) into a clean project description (`Project_Overview.md`) via a two-step AI pipeline.
 
+## Installation
+
+```bash
+uv tool install git+https://github.com/bernhard-raml/mind-to-project.git
+```
+
 ```
 Project_Overview.raw.md
         ↓  [Step 1: cleanup — lightweight model]
