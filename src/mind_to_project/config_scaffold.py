@@ -3,20 +3,20 @@ from pathlib import Path
 DEFAULT_CONFIG = """providers:
   cleanup:
     base_url: https://api.anthropic.com
-    model: claude-3-5-haiku-20241022
-    api_key_env_var: ANTHROPIC_API_KEY
+    api_key_env: ANTHROPIC_API_KEY
 
   extract:
     base_url: https://api.anthropic.com
-    model: claude-3-5-sonnet-20241022
-    api_key_env_var: ANTHROPIC_API_KEY
+    api_key_env: ANTHROPIC_API_KEY
 
 pipeline:
   cleanup:
     provider: cleanup
+    model: claude-3-5-haiku-20241022
 
   extract:
     provider: extract
+    model: claude-3-5-sonnet-20241022
 """
 
 DEFAULT_PROMPT_CLEANUP = """# Cleanup Prompt

@@ -31,6 +31,28 @@ Project_Overview.md
 - `extract` — step 2 only (requires cleaned file, requires `--force` to overwrite existing output)
 - `setup` — scaffold config dir with defaults
 
+## Usage
+
+```bash
+# First-time setup: creates default config in ~/.config/mind-to-project/
+mind-to-project setup
+
+# Run the full pipeline (reads Project_Overview.raw.md in current directory)
+mind-to-project init
+
+# Run for a specific directory
+mind-to-project init --dir path/to/project
+
+# Run individual steps
+mind-to-project clean              # Step 1: cleanup only
+mind-to-project extract            # Step 2: extract only (requires cleaned file)
+
+# Re-run steps (overwrites existing output)
+mind-to-project init --force
+mind-to-project clean --force
+mind-to-project extract --force
+```
+
 ## Config
 
 All config lives in `~/.config/mind-to-project/`:

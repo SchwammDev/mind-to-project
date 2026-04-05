@@ -1,8 +1,10 @@
 from pathlib import Path
 
-import yaml
+import pytest
 
+from mind_to_project.config import load_config
 from mind_to_project.config_scaffold import setup_config
+from mind_to_project.errors import ProjectInitError
 
 
 class TestSetupConfig:
@@ -21,9 +23,7 @@ class TestSetupConfig:
         config_file = config_dir / "config.yaml"
         assert config_file.exists()
 
-        config = yaml.safe_load(config_file.read_text())
-        assert "providers" in config
-        assert "pipeline" in config
+        load_config(config_dir)
 
     def test_creates_default_prompt_templates(self, tmp_path: Path):
         config_dir = tmp_path / ".config" / "mind-to-project"
