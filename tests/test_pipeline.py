@@ -99,7 +99,9 @@ class TestFullPipeline:
     def test_skips_cleanup_when_cleaned_file_already_exists(
         self, raw_file: Path, cleaned_file: Path, config_dir: Path
     ):
-        with patch("project_init.pipeline.call_ai", return_value=EXTRACTED_PROJECT_OVERVIEW) as mock_ai:
+        with patch(
+            "project_init.pipeline.call_ai", return_value=EXTRACTED_PROJECT_OVERVIEW
+        ) as mock_ai:
             run_pipeline(raw_file.parent, config_dir)
 
         mock_ai.assert_called_once()

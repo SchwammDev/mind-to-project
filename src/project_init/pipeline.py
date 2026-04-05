@@ -17,7 +17,10 @@ def call_ai(config, pipeline_step: str, prompt: str) -> str:
         messages=[{"role": "user", "content": prompt}],
     )
 
-    return response.choices[0].message.content
+    content = response.choices[0].message.content
+    if content is None:
+        raise ProjectInitError(f"AI returned empty response for {pipeline_step}")
+    return content
 
 
 def run_cleanup(raw_file: Path, config_dir: Path, force: bool = False) -> Path:
