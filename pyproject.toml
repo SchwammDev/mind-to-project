@@ -1,5 +1,5 @@
 [project]
-name = "project-init"
+name = "mind-to-project"
 version = "0.1.0"
 description = "CLI tool to turn raw brain-dumps into clean project descriptions via AI pipeline"
 readme = "README.md"
@@ -22,7 +22,7 @@ dev = [
 ]
 
 [project.scripts]
-project-init = "project_init:main"
+mind-to-project = "mind_to_project:main"
 
 [build-system]
 requires = ["uv_build>=0.9.18,<0.10.0"]

@@ -2,19 +2,19 @@ import argparse
 import sys
 from pathlib import Path
 
-from project_init.config import load_config  # noqa: F401 - imported for test mocking
-from project_init.config_scaffold import setup_config
-from project_init.errors import ProjectInitError
-from project_init.pipeline import run_cleanup, run_extract, run_pipeline
+from mind_to_project.config import load_config  # noqa: F401 - imported for test mocking
+from mind_to_project.config_scaffold import setup_config
+from mind_to_project.errors import ProjectInitError
+from mind_to_project.pipeline import run_cleanup, run_extract, run_pipeline
 
 
 def get_config_dir() -> Path:
-    return Path.home() / ".config" / "project-init"
+    return Path.home() / ".config" / "mind-to-project"
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        "project-init",
+        "mind-to-project",
         description="Convert raw brain-dump into clean project description",
     )
 

@@ -1,9 +1,9 @@
 from pathlib import Path
 
 
-from project_init.config import load_config, build_client
-from project_init.prompts import load_prompt
-from project_init.errors import ProjectInitError
+from mind_to_project.config import load_config, build_client
+from mind_to_project.prompts import load_prompt
+from mind_to_project.errors import ProjectInitError
 
 
 def call_ai(config, pipeline_step: str, prompt: str) -> str:

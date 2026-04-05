@@ -3,8 +3,8 @@ from unittest.mock import patch
 
 import pytest
 
-from project_init.pipeline import run_cleanup, run_extract, run_pipeline
-from project_init.errors import ProjectInitError
+from mind_to_project.pipeline import run_cleanup, run_extract, run_pipeline
+from mind_to_project.errors import ProjectInitError
 from tests.conftest import CLEANED_BRAIN_DUMP, EXTRACTED_PROJECT_OVERVIEW
 
 
@@ -19,7 +19,7 @@ class TestCleanupStep:
     def test_reads_raw_file_and_writes_cleaned_output(
         self, raw_file: Path, config_dir: Path
     ):
-        with patch("project_init.pipeline.call_ai", return_value=CLEANED_BRAIN_DUMP):
+        with patch("mind_to_project.pipeline.call_ai", return_value=CLEANED_BRAIN_DUMP):
             result_path = run_cleanup(raw_file, config_dir)
 
         assert result_path.name == "Project_Overview.raw.cleaned.md"
@@ -35,7 +35,7 @@ class TestCleanupStep:
     def test_overwrites_existing_cleaned_file_with_force(
         self, raw_file: Path, cleaned_file: Path, config_dir: Path
     ):
-        with patch("project_init.pipeline.call_ai", return_value="new cleaned text"):
+        with patch("mind_to_project.pipeline.call_ai", return_value="new cleaned text"):
             result_path = run_cleanup(raw_file, config_dir, force=True)
 
         assert result_path.read_text() == "new cleaned text"
@@ -52,7 +52,7 @@ class TestExtractStep:
         self, cleaned_file: Path, config_dir: Path
     ):
         with patch(
-            "project_init.pipeline.call_ai", return_value=EXTRACTED_PROJECT_OVERVIEW
+            "mind_to_project.pipeline.call_ai", return_value=EXTRACTED_PROJECT_OVERVIEW
         ):
             result_path = run_extract(cleaned_file, config_dir)
 
@@ -69,7 +69,7 @@ class TestExtractStep:
     def test_overwrites_existing_output_with_force(
         self, cleaned_file: Path, output_file: Path, config_dir: Path
     ):
-        with patch("project_init.pipeline.call_ai", return_value="new overview"):
+        with patch("mind_to_project.pipeline.call_ai", return_value="new overview"):
             result_path = run_extract(cleaned_file, config_dir, force=True)
 
         assert result_path.read_text() == "new overview"
@@ -87,7 +87,7 @@ class TestFullPipeline:
     def test_runs_cleanup_then_extract(self, raw_file: Path, config_dir: Path):
         ai_responses = iter([CLEANED_BRAIN_DUMP, EXTRACTED_PROJECT_OVERVIEW])
 
-        with patch("project_init.pipeline.call_ai", side_effect=ai_responses):
+        with patch("mind_to_project.pipeline.call_ai", side_effect=ai_responses):
             run_pipeline(raw_file.parent, config_dir)
 
         cleaned = raw_file.parent / "Project_Overview.raw.cleaned.md"
@@ -100,7 +100,7 @@ class TestFullPipeline:
         self, raw_file: Path, cleaned_file: Path, config_dir: Path
     ):
         with patch(
-            "project_init.pipeline.call_ai", return_value=EXTRACTED_PROJECT_OVERVIEW
+            "mind_to_project.pipeline.call_ai", return_value=EXTRACTED_PROJECT_OVERVIEW
         ) as mock_ai:
             run_pipeline(raw_file.parent, config_dir)
 
@@ -117,7 +117,7 @@ class TestFullPipeline:
     def test_overwrites_final_output_with_force(
         self, raw_file: Path, cleaned_file: Path, output_file: Path, config_dir: Path
     ):
-        with patch("project_init.pipeline.call_ai", return_value="fresh overview"):
+        with patch("mind_to_project.pipeline.call_ai", return_value="fresh overview"):
             run_pipeline(raw_file.parent, config_dir, force=True)
 
         assert output_file.read_text() == "fresh overview"

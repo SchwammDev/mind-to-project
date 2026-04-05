@@ -5,8 +5,8 @@ from unittest.mock import patch
 import pytest
 import yaml
 
-from project_init.config import build_client, load_config
-from project_init.errors import ProjectInitError
+from mind_to_project.config import build_client, load_config
+from mind_to_project.errors import ProjectInitError
 from tests.conftest import SAMPLE_CONFIG
 
 

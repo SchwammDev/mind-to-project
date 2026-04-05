@@ -6,7 +6,7 @@ import pydantic
 import yaml
 from pydantic import BaseModel
 
-from project_init.errors import ProjectInitError
+from mind_to_project.errors import ProjectInitError
 
 
 class Provider(BaseModel):
@@ -34,7 +34,7 @@ def load_config(config_dir_path: Path) -> Config:
 
     if not config_file.exists():
         raise ProjectInitError(
-            "Config not found. Run 'project-init setup' to initialize."
+            "Config not found. Run 'mind-to-project setup' to initialize."
         )
 
     try:

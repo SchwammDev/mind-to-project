@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 import pytest
 
-from project_init.cli import parse_args
+from mind_to_project.cli import parse_args
 
 
 class TestParseArgs:
@@ -53,11 +53,11 @@ class TestParseArgs:
 class TestCliDispatch:
     def test_init_runs_full_pipeline(self, raw_file: Path, config_dir: Path):
         with (
-            patch("project_init.cli.run_pipeline") as mock_pipeline,
-            patch("project_init.cli.load_config"),
-            patch("project_init.cli.get_config_dir", return_value=config_dir),
+            patch("mind_to_project.cli.run_pipeline") as mock_pipeline,
+            patch("mind_to_project.cli.load_config"),
+            patch("mind_to_project.cli.get_config_dir", return_value=config_dir),
         ):
-            from project_init.cli import main
+            from mind_to_project.cli import main
 
             main(["init", "--dir", str(raw_file.parent)])
 
@@ -65,11 +65,11 @@ class TestCliDispatch:
 
     def test_clean_runs_cleanup_only(self, raw_file: Path, config_dir: Path):
         with (
-            patch("project_init.cli.run_cleanup") as mock_cleanup,
-            patch("project_init.cli.load_config"),
-            patch("project_init.cli.get_config_dir", return_value=config_dir),
+            patch("mind_to_project.cli.run_cleanup") as mock_cleanup,
+            patch("mind_to_project.cli.load_config"),
+            patch("mind_to_project.cli.get_config_dir", return_value=config_dir),
         ):
-            from project_init.cli import main
+            from mind_to_project.cli import main
 
             main(["clean", "--dir", str(raw_file.parent)])
 
@@ -77,19 +77,19 @@ class TestCliDispatch:
 
     def test_extract_runs_extract_only(self, cleaned_file: Path, config_dir: Path):
         with (
-            patch("project_init.cli.run_extract") as mock_extract,
-            patch("project_init.cli.load_config"),
-            patch("project_init.cli.get_config_dir", return_value=config_dir),
+            patch("mind_to_project.cli.run_extract") as mock_extract,
+            patch("mind_to_project.cli.load_config"),
+            patch("mind_to_project.cli.get_config_dir", return_value=config_dir),
         ):
-            from project_init.cli import main
+            from mind_to_project.cli import main
 
             main(["extract", "--dir", str(cleaned_file.parent)])
 
         mock_extract.assert_called_once()
 
     def test_setup_scaffolds_config(self, tmp_path: Path):
-        with patch("project_init.cli.setup_config") as mock_setup:
-            from project_init.cli import main
+        with patch("mind_to_project.cli.setup_config") as mock_setup:
+            from mind_to_project.cli import main
 
             main(["setup"])
 
@@ -98,16 +98,16 @@ class TestCliDispatch:
     def test_exits_with_code_1_on_project_init_error(self, tmp_path: Path):
         with (
             patch(
-                "project_init.cli.run_pipeline",
+                "mind_to_project.cli.run_pipeline",
                 side_effect=__import__(
-                    "project_init.errors", fromlist=["ProjectInitError"]
+                    "mind_to_project.errors", fromlist=["ProjectInitError"]
                 ).ProjectInitError("something broke"),
             ),
-            patch("project_init.cli.load_config"),
-            patch("project_init.cli.get_config_dir", return_value=tmp_path),
+            patch("mind_to_project.cli.load_config"),
+            patch("mind_to_project.cli.get_config_dir", return_value=tmp_path),
             pytest.raises(SystemExit, match="1"),
         ):
-            from project_init.cli import main
+            from mind_to_project.cli import main
 
             main(["init", "--dir", str(tmp_path)])
 
@@ -116,16 +116,16 @@ class TestCliDispatch:
     ):
         with (
             patch(
-                "project_init.cli.run_pipeline",
+                "mind_to_project.cli.run_pipeline",
                 side_effect=__import__(
-                    "project_init.errors", fromlist=["ProjectInitError"]
+                    "mind_to_project.errors", fromlist=["ProjectInitError"]
                 ).ProjectInitError("config file not found"),
             ),
-            patch("project_init.cli.load_config"),
-            patch("project_init.cli.get_config_dir", return_value=tmp_path),
+            patch("mind_to_project.cli.load_config"),
+            patch("mind_to_project.cli.get_config_dir", return_value=tmp_path),
             pytest.raises(SystemExit),
         ):
-            from project_init.cli import main
+            from mind_to_project.cli import main
 
             main(["init", "--dir", str(tmp_path)])
 

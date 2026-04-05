@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from project_init.errors import ProjectInitError
+from mind_to_project.errors import ProjectInitError
 
 
 def load_prompt(template_path: Path, content: str) -> str:
@@ -8,7 +8,7 @@ def load_prompt(template_path: Path, content: str) -> str:
 
     if not template_path.exists():
         raise ProjectInitError(
-            f"Prompt template not found: {template_path}. Run 'project-init setup' to initialize."
+            f"Prompt template not found: {template_path}. Run 'mind-to-project setup' to initialize."
         )
 
     template = template_path.read_text()

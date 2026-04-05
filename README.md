@@ -1,4 +1,4 @@
-# project-init
+# mind-to-project
 
 A CLI tool that turns a raw brain-dump (`Project_Overview.raw.md`) into a clean project description (`Project_Overview.md`) via a two-step AI pipeline.
 
@@ -27,10 +27,10 @@ Project_Overview.md
 
 ## Config
 
-All config lives in `~/.config/project-init/`:
+All config lives in `~/.config/mind-to-project/`:
 
 ```
-~/.config/project-init/
+~/.config/mind-to-project/
   config.yaml
   prompts/
     cleanup.md      # Step 1 prompt template

@@ -2,19 +2,19 @@ from pathlib import Path
 
 import yaml
 
-from project_init.config_scaffold import setup_config
+from mind_to_project.config_scaffold import setup_config
 
 
 class TestSetupConfig:
     def test_creates_config_directory(self, tmp_path: Path):
-        config_dir = tmp_path / ".config" / "project-init"
+        config_dir = tmp_path / ".config" / "mind-to-project"
 
         setup_config(config_dir)
 
         assert config_dir.exists()
 
     def test_creates_default_config_yaml(self, tmp_path: Path):
-        config_dir = tmp_path / ".config" / "project-init"
+        config_dir = tmp_path / ".config" / "mind-to-project"
 
         setup_config(config_dir)
 
@@ -26,7 +26,7 @@ class TestSetupConfig:
         assert "pipeline" in config
 
     def test_creates_default_prompt_templates(self, tmp_path: Path):
-        config_dir = tmp_path / ".config" / "project-init"
+        config_dir = tmp_path / ".config" / "mind-to-project"
 
         setup_config(config_dir)
 
@@ -35,7 +35,7 @@ class TestSetupConfig:
         assert (prompts_dir / "extract.md").exists()
 
     def test_prompt_templates_contain_content_placeholder(self, tmp_path: Path):
-        config_dir = tmp_path / ".config" / "project-init"
+        config_dir = tmp_path / ".config" / "mind-to-project"
 
         setup_config(config_dir)
 
@@ -45,7 +45,7 @@ class TestSetupConfig:
         assert "{{content}}" in extract_template
 
     def test_does_not_overwrite_existing_config(self, tmp_path: Path):
-        config_dir = tmp_path / ".config" / "project-init"
+        config_dir = tmp_path / ".config" / "mind-to-project"
         config_dir.mkdir(parents=True)
         config_file = config_dir / "config.yaml"
         config_file.write_text("my custom config")
@@ -55,7 +55,7 @@ class TestSetupConfig:
         assert config_file.read_text() == "my custom config"
 
     def test_does_not_overwrite_existing_prompt_templates(self, tmp_path: Path):
-        config_dir = tmp_path / ".config" / "project-init"
+        config_dir = tmp_path / ".config" / "mind-to-project"
         prompts_dir = config_dir / "prompts"
         prompts_dir.mkdir(parents=True)
         (prompts_dir / "cleanup.md").write_text("my custom cleanup prompt")
@@ -65,7 +65,7 @@ class TestSetupConfig:
         assert (prompts_dir / "cleanup.md").read_text() == "my custom cleanup prompt"
 
     def test_creates_missing_files_alongside_existing_ones(self, tmp_path: Path):
-        config_dir = tmp_path / ".config" / "project-init"
+        config_dir = tmp_path / ".config" / "mind-to-project"
         config_dir.mkdir(parents=True)
         (config_dir / "config.yaml").write_text("existing config")
 
