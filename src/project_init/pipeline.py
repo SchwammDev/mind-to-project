@@ -1,6 +1,5 @@
 from pathlib import Path
 
-from openai import OpenAI
 
 from project_init.config import load_config, build_client
 from project_init.prompts import load_prompt
