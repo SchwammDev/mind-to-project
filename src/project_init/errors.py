@@ -1,0 +1,2 @@
+class ProjectInitError(Exception):
+    pass
