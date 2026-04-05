@@ -1,3 +1,4 @@
+import copy
 from pathlib import Path
 from unittest.mock import patch
 
@@ -37,7 +38,7 @@ class TestLoadConfig:
             load_config(config_dir)
 
     def test_rejects_provider_without_base_url(self, config_dir: Path):
-        broken = SAMPLE_CONFIG.copy()
+        broken = copy.deepcopy(SAMPLE_CONFIG)
         broken["providers"] = {"broken": {"api_key_env": "SOME_KEY"}}
         (config_dir / "config.yaml").write_text(yaml.dump(broken))
 
@@ -45,7 +46,7 @@ class TestLoadConfig:
             load_config(config_dir)
 
     def test_rejects_provider_without_api_key_env(self, config_dir: Path):
-        broken = SAMPLE_CONFIG.copy()
+        broken = copy.deepcopy(SAMPLE_CONFIG)
         broken["providers"] = {"broken": {"base_url": "https://example.com"}}
         (config_dir / "config.yaml").write_text(yaml.dump(broken))
 
@@ -53,7 +54,7 @@ class TestLoadConfig:
             load_config(config_dir)
 
     def test_rejects_pipeline_step_referencing_unknown_provider(self, config_dir: Path):
-        broken = SAMPLE_CONFIG.copy()
+        broken = copy.deepcopy(SAMPLE_CONFIG)
         broken["pipeline"] = {
             "cleanup": {"provider": "nonexistent", "model": "some-model"},
             "extract": {"provider": "capable", "model": "some-model"},
@@ -64,7 +65,7 @@ class TestLoadConfig:
             load_config(config_dir)
 
     def test_rejects_pipeline_step_without_model(self, config_dir: Path):
-        broken = SAMPLE_CONFIG.copy()
+        broken = copy.deepcopy(SAMPLE_CONFIG)
         broken["pipeline"] = {
             "cleanup": {"provider": "fast"},
             "extract": {"provider": "capable", "model": "some-model"},

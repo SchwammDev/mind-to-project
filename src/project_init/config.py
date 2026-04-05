@@ -1,6 +1,8 @@
 import os
+from pathlib import Path
 
 import openai
+import pydantic
 import yaml
 from pydantic import BaseModel
 
@@ -27,7 +29,7 @@ class Config(BaseModel):
     pipeline: Pipeline
 
 
-def load_config(config_dir_path) -> Config:
+def load_config(config_dir_path: Path) -> Config:
     config_file = config_dir_path / "config.yaml"
 
     if not config_file.exists():
@@ -42,7 +44,7 @@ def load_config(config_dir_path) -> Config:
 
     try:
         config = Config(**raw_config)
-    except Exception as e:
+    except pydantic.ValidationError as e:
         raise ProjectInitError(f"Config validation error: {e}")
 
     for step_name, step in [
