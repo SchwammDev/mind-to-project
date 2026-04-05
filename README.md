@@ -39,6 +39,10 @@ All config lives in `~/.config/project-init/`:
 
 `config.yaml` defines providers (base URL + API key env var) and pipeline steps (which provider/model for each step). Config is validated at load time using Pydantic models. Prompt templates are markdown files with a single `{{content}}` placeholder.
 
+## Running tests
+
+Run: `./run-tests.sh` or `./run-tests.sh -v` for verbose output or `./run-tests.sh tests/<TEST FILE>` for specific test suits.
+
 ## Design decisions
 
 - **Overwrite protection**: all commands that produce output files require `--force` if the target already exists, **except** that `init` silently skips step 1 (cleanup) if the cleaned file already exists — treating it as a cached intermediate
