@@ -1,3 +1,5 @@
+STARTER_CHARACTER = 💻
+
 ## Code Principles
 - We prefer simple, clean, maintainable solutions over clever or complex ones, even if the latter are more concise or performant.
 - Readability and maintainability are primary concerns.
