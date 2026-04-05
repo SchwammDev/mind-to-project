@@ -37,7 +37,7 @@ All config lives in `~/.config/project-init/`:
 
 ## CLI commands
 
-- `init` — run full pipeline (optionally `--dir PATH`, requires `--force` to overwrite existing output)
+- `init` — run full pipeline (optionally `--dir PATH`, requires `--force` to overwrite existing output); if the cleaned file already exists, step 1 is skipped and the pipeline starts from step 2
 - `clean` — step 1 only (requires `--force` to overwrite existing output)
 - `extract` — step 2 only (requires cleaned file, requires `--force` to overwrite existing output)
 - `setup` — scaffold config dir with defaults
@@ -57,7 +57,7 @@ All config lives in `~/.config/project-init/`:
 
 ## Design decisions
 
-- **Overwrite protection**: all commands that produce output files require `--force` if the target already exists
+- **Overwrite protection**: all commands that produce output files require `--force` if the target already exists, **except** that `init` silently skips step 1 (cleanup) if the cleaned file already exists — treating it as a cached intermediate
 - **Intermediate files**: always written to disk (e.g. `Project_Overview.raw.cleaned.md`) — useful for debugging and re-running individual steps
 - **API calls**: wait for full completion, no streaming
 - **Error handling**:
