@@ -5,7 +5,7 @@ A CLI tool that turns a raw brain-dump (`Project_Overview.raw.md`) into a clean 
 ## Installation
 
 ```bash
-uv tool install git+https://github.com/bernhard-raml/mind-to-project.git
+uv tool install git+https://github.com/SchwammDev/mind-to-project.git
 ```
 
 ```
